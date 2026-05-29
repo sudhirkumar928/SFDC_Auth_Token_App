@@ -1,0 +1,42 @@
+public with sharing class AuthTokenController {
+    
+    @AuraEnabled(cacheable=false)
+    public static Map<String, String> getAuthToken(String targetUsername) {
+        Map<String, String> result = new Map<String, String>();
+        
+        try {
+            // Fetch configuration dynamically from the Custom Setting
+            Auth_Token_Config__c config = Auth_Token_Config__c.getOrgDefaults();
+            
+            if (config == null || String.isBlank(config.Client_Id__c)) {
+                throw new AuraHandledException('Auth Token Config Custom Setting is missing setup values.');
+            }
+            
+            String clientId = config.Client_Id__c;
+            String audience = config.Audience_URL__c;
+            String certName = config.Certificate_Name__c;
+            
+            // 1. Construct the JWT Payload for impersonating the target user
+            Auth.JWT jwt = new Auth.JWT();
+            jwt.setAud(audience);
+            jwt.setIss(clientId);
+            jwt.setSub(targetUsername); 
+            
+            // 2. Pass the Salesforce Certificate Name for native cryptographic signing
+            Auth.JWS jws = new Auth.JWS(jwt, certName);
+            
+            // 3. Execute the secure JWT Bearer Token Exchange
+            Auth.JWTBearerTokenExchange bearer = new Auth.JWTBearerTokenExchange(audience + '/services/oauth2/token', jws);
+            
+            // 4. Return token back safely to the UI canvas
+            result.put('token', bearer.getAccessToken());
+            result.put('status', 'Success');
+            
+        } catch (Exception e) {
+            result.put('status', 'Error');
+            result.put('message', e.getMessage());
+        }
+        
+        return result;
+    }
+}
