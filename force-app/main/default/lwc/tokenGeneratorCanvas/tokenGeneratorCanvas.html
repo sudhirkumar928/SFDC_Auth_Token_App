@@ -1,0 +1,70 @@
+<template>
+    <div class="slds-box slds-theme_default custom-card-frame">
+        <div class="header-container slds-p-around_medium slds-m-bottom_medium">
+            <div class="slds-media slds-media_center">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name="utility:api" alternative-text="API" variant="inverse" size="medium"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-text-heading_medium header-title">SFDC User Auth Token Generator</h2>
+                    <p class="header-subtitle">On-demand GraphQL/REST API token generation app</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-p-horizontal_small">
+            <div class="slds-form-element">
+                <lightning-input 
+                    type="text" 
+                    label="Target Username" 
+                    value={username} 
+                    onchange={handleInputChange}
+                    placeholder="example.user@domain.com.sandbox"
+                    class="username-input-field"
+                    required>
+                </lightning-input>
+            </div>
+
+            <div class="slds-m-top_medium slds-m-bottom_large">
+                <button class="custom-action-btn" onclick={handleGenerateToken} disabled={isSubmitDisabled}>
+                    <template if:true={isLoading}>
+                        <div class="spinner-holder">
+                            <span class="btn-spinner"></span> Generating Access Session...
+                        </div>
+                    </template>
+                    <template if:false={isLoading}>
+                        ⚡ Generate Auth Token
+                    </template>
+                </button>
+            </div>
+
+            <template if:true={token}>
+                <div class="output-panel success-panel slds-p-around_medium animated fadeIn">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                        <span class="status-indicator success-text">● ACTIVE AUTH_TOKEN GENERATED</span>
+                        <button class="copy-utility-btn" onclick={handleCopyToClipboard}>
+                            {copyButtonLabel}
+                        </button>
+                    </div>
+                    <div class="code-block-wrapper">
+                        <textarea class="raw-token-stream" readonly>{token}</textarea>
+                    </div>
+                </div>
+            </template>
+
+            <template if:true={errorMessage}>
+                <div class="output-panel error-panel slds-p-around_medium animated fadeIn">
+                    <div class="slds-media slds-media_center">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="utility:error" alternative-text="Error" variant="error" size="small"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <span class="status-indicator error-text">⚠️ AUTHENTICATION EXCEPTION DETECTED</span>
+                            <p class="error-details-text slds-m-top_thin">{errorMessage}</p>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>
