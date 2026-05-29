@@ -1,5 +1,19 @@
 ## ⚙️ Salesforce Sandbox Environment Setup
 
+├── force-app/main/default/
+│   ├── classes/
+│   │   ├── AuthTokenController.cls
+│   │   └── AuthTokenController.cls-meta.xml
+│   ├── lwc/
+│   │   └── tokenGeneratorCanvas/
+│   │       ├── tokenGeneratorCanvas.html
+│   │       ├── tokenGeneratorCanvas.js
+│   │       ├── tokenGeneratorCanvas.css
+│   │       └── tokenGeneratorCanvas.js-meta.xml
+│   └── customSettings/
+│       └── Auth_Token_Config__c.customSetting-meta.xml
+
+
 To deploy and use this utility, follow these step-by-step configuration phases inside your Salesforce Sandbox.
 
 ### Phase 1: Provision the Self-Signed Certificate
