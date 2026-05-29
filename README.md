@@ -77,7 +77,7 @@ We isolate the configuration properties into a Custom Setting so that moving bet
 
 BSD 3-Clause License
 
-Copyright (c) 2026, [Your Name or GitHub Username]
+Copyright (c) 2026, [Sudhir Kumar Panda -- sudhirkumar928]
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
