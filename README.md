@@ -105,3 +105,6 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+## 🤝 Acknowledgments & Collaboration
+This project was co-engineered in collaboration with **Gemini (Google AI)**. The AI assistant served as a pair-programming partner to help design the serverless cloud-native architecture, refine the asymmetric cryptographic Apex loops, and implement the customized component UI layout.
